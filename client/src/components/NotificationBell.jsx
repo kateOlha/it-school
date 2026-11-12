@@ -38,7 +38,7 @@ export default function NotificationBell() {
   }
 
   const panel = (
-    <div style={{ width: 320, maxWidth: '90vw' }} data-tour="nav-notifications">
+    <div className="notif-panel" data-tour="nav-notifications">
       <Flex justify="space-between" align="center" style={{ padding: '8px 12px' }}>
         <Typography.Text strong>Уведомления</Typography.Text>
         {unread > 0 && (
@@ -51,13 +51,13 @@ export default function NotificationBell() {
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Пока тихо" />
       ) : (
         <List
-          style={{ maxHeight: 360, overflow: 'auto' }}
+          style={{ maxHeight: 360, overflow: 'auto', background: 'var(--color-surface)' }}
           dataSource={items}
           renderItem={(n) => (
             <List.Item
               style={{
                 padding: '10px 12px',
-                background: n.read_at ? undefined : 'var(--color-selection)',
+                background: n.read_at ? 'var(--color-surface)' : 'var(--color-selection)',
               }}
             >
               {n.link ? (
@@ -87,6 +87,7 @@ export default function NotificationBell() {
       trigger={['click']}
       popupRender={() => panel}
       placement="bottomRight"
+      overlayClassName="notif-dropdown"
     >
       <Badge count={unread} size="small" overflowCount={9}>
         <Button type="text" icon={<BellOutlined />} aria-label="Уведомления" />

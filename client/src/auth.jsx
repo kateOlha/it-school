@@ -44,8 +44,20 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  function refreshUser(next) {
+    if (next) setUser(next);
+  }
+
+  useEffect(() => {
+    function onRefresh(e) {
+      if (e?.detail) setUser(e.detail);
+    }
+    window.addEventListener('itscool-user-refresh', onRefresh);
+    return () => window.removeEventListener('itscool-user-refresh', onRefresh);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout, setUser: refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

@@ -52,7 +52,9 @@ export default function Layout() {
     if (path.startsWith('/parent')) return ['/parent'];
     if (path.startsWith('/portfolio')) return ['/portfolio'];
     if (path.startsWith('/diary')) return ['/diary'];
+    if (path.startsWith('/record-book')) return ['/record-book'];
     if (path.startsWith('/messages')) return ['/messages'];
+    if (path.startsWith('/cabinet')) return ['/cabinet'];
     if (path.startsWith('/dashboard')) return ['/dashboard'];
     if (path.startsWith('/courses')) return ['/courses'];
     if (path.startsWith('/product')) return ['/product'];
@@ -64,6 +66,11 @@ export default function Layout() {
       { key: '/courses', icon: <BookOutlined />, label: 'Курсы' },
     ];
     if (user) {
+      list.unshift({
+        key: '/cabinet',
+        icon: <UserOutlined />,
+        label: 'Кабинет',
+      });
       if (flag(user, 'student') || user.role === 'admin') {
         list.push({
           key: '/dashboard',
@@ -73,6 +80,11 @@ export default function Layout() {
       }
       if (flag(user, 'diary')) {
         list.push({ key: '/diary', icon: <FormOutlined />, label: 'Дневник' });
+        list.push({
+          key: '/record-book',
+          icon: <BookOutlined />,
+          label: 'Зачётка',
+        });
       }
       if (flag(user, 'portfolio')) {
         list.push({

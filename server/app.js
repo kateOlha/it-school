@@ -21,6 +21,7 @@ function createApp(options = {}) {
   });
 
   app.use('/api/auth', authRoutes);
+  app.use('/api/cabinet', require('./routes/cabinet'));
   app.use('/api/courses', courseRoutes);
   app.use('/api/lessons', lessonRoutes);
   app.use('/api/contacts', require('./routes/contacts'));
@@ -40,6 +41,7 @@ function createApp(options = {}) {
   app.use('/api/materials', require('./routes/materials'));
   app.use('/api/gradebook', require('./routes/gradebook'));
   app.use('/api/diary', require('./routes/diary'));
+  app.use('/api/record-book', require('./routes/recordBook'));
   app.use('/api/trials', require('./routes/trials'));
   app.use('/api/portfolio', require('./routes/portfolio'));
   app.use('/api/search', require('./routes/search'));

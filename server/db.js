@@ -665,6 +665,51 @@ db.exec(`
   }
 })();
 
+// Electronic grade book (зачётная книжка, образец Минпросвещения № 217)
+db.exec(`
+  CREATE TABLE IF NOT EXISTS record_books (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    contact_id INTEGER NOT NULL UNIQUE REFERENCES contacts(id) ON DELETE CASCADE,
+    book_number TEXT NOT NULL,
+    org_founder TEXT NOT NULL DEFAULT '',
+    org_name TEXT NOT NULL DEFAULT 'IT-Scool',
+    specialty TEXT NOT NULL DEFAULT '',
+    study_form TEXT NOT NULL DEFAULT 'очная',
+    enrolled_order TEXT NOT NULL DEFAULT '',
+    enrolled_at TEXT,
+    issued_at TEXT,
+    director_name TEXT NOT NULL DEFAULT '',
+    course_year INTEGER,
+    photo_url TEXT NOT NULL DEFAULT '',
+    notes TEXT NOT NULL DEFAULT '',
+    created_at TEXT NOT NULL DEFAULT (datetime('now')),
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS record_book_entries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    book_id INTEGER NOT NULL REFERENCES record_books(id) ON DELETE CASCADE,
+    section TEXT NOT NULL CHECK(section IN ('exam','credit','coursework','practice','gia','state_exam','demo_exam')),
+    semester INTEGER,
+    academic_year TEXT NOT NULL DEFAULT '',
+    course_num INTEGER,
+    subject TEXT NOT NULL DEFAULT '',
+    hours TEXT NOT NULL DEFAULT '',
+    grade TEXT NOT NULL DEFAULT '',
+    graded_at TEXT,
+    teacher_name TEXT NOT NULL DEFAULT '',
+    topic TEXT NOT NULL DEFAULT '',
+    place TEXT NOT NULL DEFAULT '',
+    meta_json TEXT NOT NULL DEFAULT '{}',
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    source TEXT NOT NULL DEFAULT 'manual',
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_record_book_entries_book
+    ON record_book_entries(book_id, section, semester, sort_order);
+`);
+
 // Mark overdue payments on boot
 try {
   db.prepare(

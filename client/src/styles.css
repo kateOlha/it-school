@@ -55,6 +55,23 @@ body {
   gap: 14px;
 }
 
+/* Opaque notification dropdown — must not show page content through */
+.notif-dropdown.ant-dropdown,
+.notif-dropdown .ant-dropdown-menu {
+  background: var(--color-surface) !important;
+  padding: 0;
+}
+
+.notif-panel {
+  width: 320px;
+  max-width: 90vw;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(44, 62, 80, 0.16);
+  overflow: hidden;
+}
+
 .brand-link {
   display: inline-flex;
   align-items: baseline;
@@ -177,6 +194,31 @@ body {
 .cabinet-card.ant-card {
   border-radius: 16px;
   height: 100%;
+}
+
+.cabinet-profile {
+  background:
+    linear-gradient(120deg, var(--color-primary-soft), transparent 55%),
+    var(--color-surface);
+}
+
+.cabinet-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.cabinet-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .material-viewer {
@@ -572,5 +614,205 @@ body {
 
   .pitch-hero {
     padding: 32px 20px;
+  }
+}
+
+/* Electronic grade book (зачётка) */
+.zk-page {
+  width: 100%;
+}
+
+.zk-editor {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+}
+
+.zk-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.zk-book {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.zk-spread {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-surface);
+  box-shadow: 0 8px 24px rgba(44, 62, 80, 0.08);
+}
+
+.zk-page-half {
+  padding: 20px 18px 28px;
+  min-height: 280px;
+  position: relative;
+  border-right: 1px dashed var(--color-border);
+}
+
+.zk-page-half:last-child {
+  border-right: none;
+}
+
+.zk-page-half.zk-fullspan {
+  grid-column: 1 / -1;
+  border-right: none;
+}
+
+.zk-cover {
+  min-height: 320px;
+  background: linear-gradient(125deg, var(--color-hero-from), var(--color-hero-to));
+  color: #fff;
+}
+
+.zk-cover .zk-page-half {
+  border-right-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.zk-cover-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.zk-cover-front h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  margin: 12px 0;
+  letter-spacing: 0.04em;
+}
+
+.zk-org {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin: 0;
+}
+
+.zk-photo {
+  width: 120px;
+  height: 150px;
+  border: 1px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  background: var(--color-bg-subtle);
+  margin-bottom: 16px;
+}
+
+.zk-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.zk-line {
+  border-bottom: 1px solid var(--color-border-strong);
+  min-height: 1.4em;
+  margin: 0 0 4px;
+}
+
+.zk-line.strong {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.zk-caption {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  margin: 0 0 12px;
+}
+
+.zk-sem-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.zk-stamp {
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.zk-sign {
+  margin-top: 18px;
+  color: var(--color-text-secondary);
+}
+
+.zk-pagenum {
+  position: absolute;
+  bottom: 8px;
+  right: 14px;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  margin: 0;
+}
+
+.zk-muted {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.zk-table .ant-table {
+  font-size: 13px;
+}
+
+@media (max-width: 900px) {
+  .zk-spread {
+    grid-template-columns: 1fr;
+  }
+
+  .zk-page-half {
+    border-right: none;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .zk-page-half:last-child {
+    border-bottom: none;
+  }
+}
+
+@media print {
+  .no-print,
+  .app-header,
+  .app-footer {
+    display: none !important;
+  }
+
+  .zk-toolbar {
+    display: none !important;
+  }
+
+  .zk-spread {
+    break-inside: avoid;
+    box-shadow: none;
+    margin-bottom: 12px;
+  }
+
+  .zk-cover {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background: #fff !important;
   }
 }

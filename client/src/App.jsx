@@ -27,6 +27,7 @@ import MaterialsPage from './pages/office/MaterialsPage';
 import MessagesPage from './pages/MessagesPage';
 import CertificatePage from './pages/CertificatePage';
 import DiaryPage from './pages/DiaryPage';
+import RecordBookPage from './pages/RecordBookPage';
 import PortfolioPage from './pages/PortfolioPage';
 import TrialsPage from './pages/office/TrialsPage';
 import DocumentsPage from './pages/office/DocumentsPage';
@@ -44,6 +45,7 @@ import LandingAnalyticsPage from './pages/office/LandingAnalyticsPage';
 import AnalyticsBuilderPage from './pages/office/AnalyticsBuilderPage';
 import PublicLandingPage from './pages/PublicLandingPage';
 import ProductPitchPage from './pages/ProductPitchPage';
+import CabinetPage from './pages/CabinetPage';
 
 function Private({ children }) {
   const { user, loading } = useAuth();
@@ -59,6 +61,14 @@ export default function App() {
       <Route element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="product" element={<ProductPitchPage />} />
+        <Route
+          path="cabinet"
+          element={
+            <Private>
+              <CabinetPage />
+            </Private>
+          }
+        />
         <Route path="courses" element={<Courses />} />
         <Route path="courses/:id" element={<CourseDetail />} />
         <Route path="apply" element={<ApplyPage />} />
@@ -124,6 +134,14 @@ export default function App() {
           element={
             <Private>
               <DiaryPage />
+            </Private>
+          }
+        />
+        <Route
+          path="record-book"
+          element={
+            <Private>
+              <RecordBookPage />
             </Private>
           }
         />

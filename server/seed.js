@@ -17,6 +17,8 @@ function clear() {
     DELETE FROM files;
     DELETE FROM portfolio_projects;
     DELETE FROM trial_lessons;
+    DELETE FROM record_book_entries;
+    DELETE FROM record_books;
     DELETE FROM diary_feedback;
     DELETE FROM diary_raise_requests;
     DELETE FROM diary_entries;
@@ -1248,6 +1250,42 @@ if (pythonCourse?.id) {
   );
 })();
 
+(() => {
+  try {
+    const { ensureBook, insertEntry, academicYearFromPeriod } = require('./services/recordBook');
+    const book = ensureBook(studentContactId);
+    if (book) {
+      db.prepare(
+        `UPDATE record_books SET specialty = ?, enrolled_order = ?, director_name = ?, study_form = ?
+         WHERE id = ?`
+      ).run(
+        '09.02.07 Информационные системы и программирование',
+        '№ 12-ОД',
+        'Администратор IT-Scool',
+        'очная',
+        book.id
+      );
+      insertEntry(book.id, {
+        section: 'practice',
+        semester: 1,
+        academic_year: academicYearFromPeriod(),
+        course_num: 7,
+        subject: 'Учебная практика (IT-лаборатория)',
+        hours: '36',
+        grade: 'зачтено',
+        graded_at: new Date().toISOString().slice(0, 10),
+        teacher_name: 'Анна Преподаватель',
+        place: 'IT-Scool, каб. Python',
+        topic: 'Практика по вводу-выводу и переменным',
+        sort_order: 100,
+        source: 'manual',
+      });
+    }
+  } catch (e) {
+    console.warn('record book seed skipped:', e.message);
+  }
+})();
+
 console.log('База заполнена.');
 console.log('Аккаунты (вход):');
 console.log('  admin@itscool.local / admin123');
@@ -1259,3 +1297,4 @@ console.log('В базе, вход отключён: accountant, hr, analyst, ma
 console.log(`Курсов: ${courses.length}, admin id=${adminId}`);
 console.log('Wave9: лендинги /office/landings · публично /l/python-leto');
 console.log('Wave10: аналитика /office/analytics · экспорт HTML/PDF/PPTX');
+console.log('Зачётка: /record-book (образец приказа № 217)');

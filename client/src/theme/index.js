@@ -155,6 +155,7 @@ export function buildAntdTheme(mode = 'light') {
       },
       Dropdown: {
         controlItemBgHover: s.selection,
+        colorBgElevated: s.elevated,
       },
       Input: {
         ...sharedComponents.Input,
