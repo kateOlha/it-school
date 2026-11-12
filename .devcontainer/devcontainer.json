@@ -1,0 +1,23 @@
+{
+  "name": "IT-Scool",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": {
+      "label": "IT-Scool",
+      "onAutoForward": "notify",
+      "visibility": "public"
+    }
+  },
+  "postCreateCommand": "npm run setup",
+  "postStartCommand": "npm start",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint"]
+    }
+  },
+  "remoteEnv": {
+    "JWT_SECRET": "itscool-demo-secret-change-me",
+    "PORT": "3000"
+  }
+}
